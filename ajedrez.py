@@ -24,13 +24,11 @@ def actualizar_fichero(nombre_fichero):
     f.close()  
 
 def buscar_movimiento(nombre_fichero, movimiento):
-    texto_a_buscar='movimiento '+str(movimiento)
-    PosicionTexto=-1
-    tableroMovimientos=[]
-    with open(nombre_fichero, mode="r", encoding="utf-8") as fichero:
-        tableroMovimientos=fichero.read().split('\n')
-        print(tableroMovimientos)
-
+    f=open(nombre_fichero, mode="r", encoding="utf-8")
+    tablero=f.read().split('\n')
+    for i in tablero[(movimiento*9)+1:(movimiento*9)+9]:
+        print(i)
+    return
 
 
 nombreFichero=inicializar_fichero()
