@@ -2,27 +2,39 @@ import io
 tablero_inicial='\u265c\t\u265e\t\u265d\t\u265b\t\u265a\t\u265d\t\u265e\t\u265c\n\u265f\t\u265f\t\u265f\t\u265f\t\u265f\t\u265f\t\u265f\t\u265f\n\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\n\u2659\t\u2659\t\u2659\t\u2659\t\u2659\t\u2659\t\u2659\t\u2659\n\u2656\t\u2658\t\u2657\t\u2655\t\u2654\t\u2657\t\u2658\t\u2656'
 tablero=[]
 movimiento=0
+nombreFichero=''
 
-def inicializar_fichero(tableroInicial, _tablero, _movimiento):
+def inicializar_fichero():
     nombreFichero=input("introduzca un nombre para el fichero de movimientos: ")
-    for i in tableroInicial.split('\n'):
-        _tablero.append(i.split('\t'))
+    for i in tablero_inicial.split('\n'):
+        tablero.append(i.split('\t'))
         f=io.open(nombreFichero, mode= "w", encoding="utf-8")
-        f.write('movimiento '+ str(_movimiento)+ '\n')
-        for i in _tablero:
+        f.write('movimiento '+ str(movimiento)+ '\n')
+        for i in tablero:
             f.write('\t'.join(i)+'\n')
-        f.close()    
+        f.close()  
+    return nombreFichero  
+    
 
+def actualizar_fichero(nombre_fichero):
+    f=io.open(nombre_fichero, mode="a", encoding="utf-8")
+    f.write('movimiento '+ str(movimiento)+ '\n')
+    for i in tablero:
+        f.write('\t'.join(i)+'\n')
+    f.close()  
 
-inicializar_fichero(tablero_inicial, tablero, movimiento)
+nombreFichero=inicializar_fichero()
+print()
 print(tablero_inicial)
+print()
 
 while True:
-    print('elija una opcion: ')
+    print('Menú')
     print('1-Hacer un movimiento ')
     print('2-Ver un movimiento ')
     print('3-Salir ')
-    opcion=int(input())
+    print()
+    opcion=int(input('Elija una opción: '))
     
     if opcion==1:
         tablero_nuevo=''
@@ -46,3 +58,12 @@ while True:
         
         tablero[fila_destino-1][columna_destino-1]=tablero[fila_origen-1][columna_origen-1]
         tablero[fila_origen-1][columna_origen-1]=''
+    
+        actualizar_fichero(nombreFichero)
+
+        for i in tablero:
+            tablero_nuevo=tablero_nuevo+ '\t'.join(i)+ '\n'
+
+        print()
+        print(tablero_nuevo)
+        print()
