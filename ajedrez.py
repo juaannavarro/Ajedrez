@@ -23,6 +23,16 @@ def actualizar_fichero(nombre_fichero):
         f.write('\t'.join(i)+'\n')
     f.close()  
 
+def buscar_movimiento(nombre_fichero, movimiento):
+    texto_a_buscar='movimiento '+str(movimiento)
+    PosicionTexto=-1
+    tableroMovimientos=[]
+    with open(nombre_fichero, mode="r", encoding="utf-8") as fichero:
+        tableroMovimientos=fichero.read().split('\n')
+        print(tableroMovimientos)
+
+
+
 nombreFichero=inicializar_fichero()
 print()
 print(tablero_inicial)
@@ -67,3 +77,15 @@ while True:
         print()
         print(tablero_nuevo)
         print()
+
+    elif(opcion==2):
+        print("mostrar movimiento")
+        while True:
+            numMovimiento=int(input("introduzca el nº de movimiento que desea ver: "))
+            if numMovimiento>movimiento:
+                break
+            else:
+                buscar_movimiento(nombreFichero, numMovimiento)
+                break
+        else:
+            break
